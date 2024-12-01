@@ -15,7 +15,7 @@
     * light – łączna moc oświetlenia
  
 ## Członkowie zespołu
-*Agata Kashyna
-*Michał Budzyński (Scrum Master)
-*Aleksandra Bamberska
-*Adam Biernacki
+* Agata Kashyna
+* Michał Budzyński (Scrum Master)
+* Aleksandra Bamberska
+* Adam Biernacki
