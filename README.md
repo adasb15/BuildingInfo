@@ -2,7 +2,7 @@
 #**Projekt z Inżynierii Oprogramowania**
 **Dla administratorów budynków**, którzy pragną optymalizować koszty zarządzania budynkami  nasza aplikacja Building Info umożliwi pozyskanie informacji o parametrach budynku na poziomie pomieszczeń, kondygnacji oraz całych budynków. Aplikacja będzie dostępna poprzez GUI a także jako zdalne API dzięki czemu można ją zintegrować z istniejącymi narzędziami.
 
-##**Struktura danych**
+## **Struktura danych**
 * Lokacja to budynek, poziom, lub pomieszczenie
 * Budynek może składać się z poziomów a te z pomieszczeń
 * Każda lokalizacja jest charakteryzowana przez:
@@ -14,8 +14,8 @@
     * heating = poziom zużycia energii ogrzewania (float)
     * light – łączna moc oświetlenia
  
-##Członkowie zespołu
+## Członkowie zespołu
 *Agata Kashyna
-*Michał Budzyński
+*Michał Budzyński (Scrum Master)
 *Aleksandra Bamberska
 *Adam Biernacki
