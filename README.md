@@ -1,5 +1,5 @@
 # BuildingInfo
-#**Projekt z Inżynierii Oprogramowania**
+# **Projekt z Inżynierii Oprogramowania**
 **Dla administratorów budynków**, którzy pragną optymalizować koszty zarządzania budynkami  nasza aplikacja Building Info umożliwi pozyskanie informacji o parametrach budynku na poziomie pomieszczeń, kondygnacji oraz całych budynków. Aplikacja będzie dostępna poprzez GUI a także jako zdalne API dzięki czemu można ją zintegrować z istniejącymi narzędziami.
 
 ## **Struktura danych**
@@ -15,7 +15,7 @@
     * light – łączna moc oświetlenia
  
 ## Członkowie zespołu
-*Agata Kashyna
-*Michał Budzyński (Scrum Master)
-*Aleksandra Bamberska
-*Adam Biernacki
+* Agata Kashyna
+* Michał Budzyński (Scrum Master)
+* Aleksandra Bamberska
+* Adam Biernacki
