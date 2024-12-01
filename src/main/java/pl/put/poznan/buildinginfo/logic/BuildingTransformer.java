@@ -1,6 +1,10 @@
 package pl.put.poznan.buildinginfo.logic;
 //importing class files - starting with class Building
 import pl.put.poznan.buildinginfo.classes.Building;
+import pl.put.poznan.buildinginfo.classes.Floor;
+import pl.put.poznan.buildinginfo.classes.Room;
+import pl.put.poznan.buildinginfo.classes.Location;
+
 
 
 import java.util.ArrayList;

@@ -13,6 +13,36 @@ public abstract class Location {
       }
 
   //miejsce na gettery (getID, getName)
+    public int getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
 
-  //miejsce na settery (setID,setName)
+    //miejsce na settery (setID,setName)
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //gettery i settery tych parametrów (kubatura, oświetlenie itd)
+    public float getArea(){
+        return 0;
+    }
+
+    public float getHeating(){
+        return 0;
+    }
+    public float getLight(){
+        return 0;
+    }
+    public float getCube(){
+        return 0;
+    }
+
+
 }
