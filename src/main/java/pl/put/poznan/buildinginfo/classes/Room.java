@@ -41,4 +41,14 @@ float light, float cube){
       return cube;
   }
 
+  public float getAverageRoomLight(){
+    float averageLight = getLight()/getArea();
+    return averageLight;
+  }
+
+  public float getAverageRoomHeating(){
+    float averageHeating = getHeating()/getCube();
+    return averageHeating;
+  }
+
 }
