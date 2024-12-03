@@ -1,10 +1,12 @@
 package pl.put.poznan.buildinginfo.classes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Floor extends Location {
-
+    @JsonProperty("rooms")
     public List<Room> rooms;
 
     /**
@@ -17,6 +19,20 @@ public class Floor extends Location {
     public Floor(int id, String name) {
         super(id, name);
         this.rooms = new ArrayList<>();
+    }
+
+    public Floor() {
+        super(0, "");  // Konstruktor bezargumentowy
+        this.rooms = new ArrayList<>();
+    }
+
+    // Gettery i Settery
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
 

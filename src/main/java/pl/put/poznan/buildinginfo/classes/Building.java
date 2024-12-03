@@ -1,17 +1,36 @@
 package pl.put.poznan.buildinginfo.classes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
 public class Building extends Location {
+    @JsonProperty("floors")
 
     public List<Floor> floors;
+
 
     public Building(int id, String name) {
       super(id, name); //tzn ze z klasy nadrzednej
       this.floors = new ArrayList<>();
   }
+    public Building() {
+        super(0, "");  // Konstruktor bezargumentowy, wymagany do deserializacji
+        this.floors = new ArrayList<>();
+    }
+
+    // Gettery i Settery
+    public List<Floor> getFloors() {
+        return floors;
+    }
+
+    public void setFloors(List<Floor> floors) {
+        this.floors = floors;
+    }
 
     //obliczanie parametrów dla piętra na podstawie danych z pomieszczeń
     public float getBuildingArea() {

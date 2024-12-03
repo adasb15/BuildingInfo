@@ -1,12 +1,19 @@
 package pl.put.poznan.buildinginfo.classes;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Room extends Location {
 //miejsce na dane
 //powierzchnia, ogrzewanie, swiatło i kubatura
+@JsonProperty("area")
 private float area;
+@JsonProperty("heating")
 private float heating;
+
+@JsonProperty("light")
 private float light;
+@JsonProperty("cube")
 private float cube;
 //trzeba bedzie dodac te parametry ktore nalezy liczyc
 
@@ -20,6 +27,10 @@ float light, float cube){
   this.light = light;
   this.cube = cube;
 }
+
+  public Room() {
+    super(0, "");  // Konstruktor bezargumentowy wymagany dla wczytania JSON
+  }
   //gettery (ale potem bo muszą byc override z Location)
   @Override
   public float getArea() {
@@ -42,13 +53,17 @@ float light, float cube){
   }
 
   public float getAverageRoomLight(){
-    float averageLight = getLight()/getArea();
-    return averageLight;
+    if (area == 0) {
+      throw new IllegalArgumentException("Area cannot be zero for average light calculation.");
+    }
+    return light/area;
   }
 
   public float getAverageRoomHeating(){
-    float averageHeating = getHeating()/getCube();
-    return averageHeating;
+    if (cube == 0) {
+      throw new IllegalArgumentException("Cube cannot be zero for average heating calculation.");
+    }
+    return heating / cube;
   }
 
 }

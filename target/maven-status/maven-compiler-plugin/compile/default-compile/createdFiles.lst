@@ -1,7 +1,8 @@
-pl/put/poznan/buildinginfo/rest/BuildingInfoController.class
-pl/put/poznan/buildinginfo/classes/Location.class
-pl/put/poznan/buildinginfo/classes/Building.class
-pl/put/poznan/buildinginfo/app/BuildingInfoApplication.class
-pl/put/poznan/buildinginfo/classes/Floor.class
-pl/put/poznan/buildinginfo/classes/Room.class
-pl/put/poznan/buildinginfo/logic/BuildingTransformer.class
+pl\put\poznan\buildinginfo\classes\Room.class
+pl\put\poznan\buildinginfo\classes\Floor.class
+pl\put\poznan\buildinginfo\app\BuildingInfoApplication.class
+pl\put\poznan\buildinginfo\classes\Building.class
+pl\put\poznan\buildinginfo\logic\BuildingTransformer.class
+pl\put\poznan\buildinginfo\classes\Location.class
+pl\put\poznan\buildinginfo\rest\BuildingInfoController.class
+pl\put\poznan\buildinginfo\classes\JSONReader.class
