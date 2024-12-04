@@ -65,5 +65,4 @@ float light, float cube){
     }
     return heating / cube;
   }
-
 }

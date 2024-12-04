@@ -1,11 +1,9 @@
 package pl.put.poznan.buildinginfo.classes;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class Building extends Location {
@@ -87,5 +85,4 @@ public class Building extends Location {
 
         return roomsAboveThreshold;
     }
-
 }

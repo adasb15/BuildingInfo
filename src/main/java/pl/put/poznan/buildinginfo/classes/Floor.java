@@ -1,9 +1,9 @@
 package pl.put.poznan.buildinginfo.classes;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Floor extends Location {
     @JsonProperty("rooms")

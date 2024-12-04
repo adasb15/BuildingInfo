@@ -1,26 +1,25 @@
 package pl.put.poznan.buildinginfo.logic;
 //importing class files - starting with class Building
-import pl.put.poznan.buildinginfo.classes.Building;
-import pl.put.poznan.buildinginfo.classes.Floor;
-import pl.put.poznan.buildinginfo.classes.Room;
-import pl.put.poznan.buildinginfo.classes.Location;
-
-
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import pl.put.poznan.buildinginfo.classes.Building;
 
 /**
  * This is just an example to show that the logic should be outside the REST service.
  */
+
+
+@Component
 public class BuildingTransformer {
 
     public List<Building> buildings = new ArrayList<>();
 
     public BuildingTransformer(List<Building> build) {
 
-        List<Building> buildings = build;
+        this.buildings = build;
 
     }
 

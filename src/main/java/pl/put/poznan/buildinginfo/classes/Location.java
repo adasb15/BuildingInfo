@@ -4,8 +4,8 @@ package pl.put.poznan.buildinginfo.classes;
 
 public abstract class Location {
 
-    private int id;
-    private String name;
+    public int id;
+    public String name;
   
     public Location(int id, String name) {
           this.id = id;
