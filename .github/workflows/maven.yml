@@ -34,3 +34,15 @@ jobs:
           path: |
             target/*.jar
             target/site/apidocs
+            
+      - name: Commit JavaDoc
+        run: |
+          git add -A
+          git config --local user.email "M.budyniek@gmail.com"
+          git config --local user.name "MiBudzynski"
+          git commit -m "Generated JavaDoc" || echo "No changes to commit"
+          
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: git push
