@@ -1,8 +1,8 @@
-/home/runner/work/BuildingInfo_a/BuildingInfo_a/src/main/java/pl/put/poznan/buildinginfo/classes/Building.java
-/home/runner/work/BuildingInfo_a/BuildingInfo_a/src/main/java/pl/put/poznan/buildinginfo/classes/Location.java
-/home/runner/work/BuildingInfo_a/BuildingInfo_a/src/main/java/pl/put/poznan/buildinginfo/classes/Floor.java
-/home/runner/work/BuildingInfo_a/BuildingInfo_a/src/main/java/pl/put/poznan/buildinginfo/classes/JSONReader.java
-/home/runner/work/BuildingInfo_a/BuildingInfo_a/src/main/java/pl/put/poznan/buildinginfo/app/BuildingInfoApplication.java
-/home/runner/work/BuildingInfo_a/BuildingInfo_a/src/main/java/pl/put/poznan/buildinginfo/classes/Room.java
-/home/runner/work/BuildingInfo_a/BuildingInfo_a/src/main/java/pl/put/poznan/buildinginfo/rest/BuildingInfoController.java
-/home/runner/work/BuildingInfo_a/BuildingInfo_a/src/main/java/pl/put/poznan/buildinginfo/logic/BuildingTransformer.java
+/home/runner/work/BuildingInfo/BuildingInfo/src/main/java/pl/put/poznan/buildinginfo/logic/BuildingTransformer.java
+/home/runner/work/BuildingInfo/BuildingInfo/src/main/java/pl/put/poznan/buildinginfo/classes/Building.java
+/home/runner/work/BuildingInfo/BuildingInfo/src/main/java/pl/put/poznan/buildinginfo/classes/Location.java
+/home/runner/work/BuildingInfo/BuildingInfo/src/main/java/pl/put/poznan/buildinginfo/classes/Room.java
+/home/runner/work/BuildingInfo/BuildingInfo/src/main/java/pl/put/poznan/buildinginfo/classes/JSONReader.java
+/home/runner/work/BuildingInfo/BuildingInfo/src/main/java/pl/put/poznan/buildinginfo/classes/Floor.java
+/home/runner/work/BuildingInfo/BuildingInfo/src/main/java/pl/put/poznan/buildinginfo/rest/BuildingInfoController.java
+/home/runner/work/BuildingInfo/BuildingInfo/src/main/java/pl/put/poznan/buildinginfo/app/BuildingInfoApplication.java
