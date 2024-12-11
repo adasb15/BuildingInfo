@@ -37,139 +37,361 @@ public class BuildingInfoController {
 
     // Endpoint do obliczania powierzchni budynku
     @PostMapping(value = "/{id}/area", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateBuildingArea(@PathVariable int id) {
+    public ResponseEntity<Map<String, Double>> calculateBuildingArea(@RequestBody Building building, @PathVariable int id) {
         logger.info(">> calculateBuildingArea: ID = {}", id);
 
-        // Call transformer to get the area
-        String result = buildingTransformer.getAreaOfBuilding(id);
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
 
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + id + " not found"));
 
-        logger.info("<< calculateBuildingArea: {}", result);
+        // Obliczamy powierzchnię budynku
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("area", (double) foundBuilding.getBuildingArea());
+
+        logger.info("<< calculateBuildingArea: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     // Endpoint do obliczania powierzchni piętra
     @PostMapping(value = "/{buildingId}/floor/{floorId}/area", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateFloorArea(@PathVariable int buildingId, @PathVariable int floorId) {
+    public ResponseEntity<Map<String, Double>> calculateFloorArea(@RequestBody Building building, @PathVariable int buildingId, @PathVariable int floorId) {
         logger.info(">> calculateFloorArea: Building ID = {}, Floor ID = {}", buildingId, floorId);
 
-        // Call transformer to get the area
-        String result = buildingTransformer.getAreaOfFloor(buildingId, floorId);
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
 
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + buildingId + " not found"));
 
-        logger.info("<< calculateFloorArea: {}", result);
+        // Szukamy piętra po ID
+        Floor foundFloor = foundBuilding.getFloors()
+                .stream()
+                .filter(f -> f.getId() == floorId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Floor with ID " + floorId + " not found"));
+
+        // Obliczamy powierzchnię piętra
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("area", (double) foundFloor.getFloorArea());
+
+        logger.info("<< calculateFloorArea: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     // Endpoint do obliczania powierzchni pomieszczenia
     @PostMapping(value = "/{buildingId}/floor/{floorId}/room/{roomId}/area", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateRoomArea(@PathVariable int buildingId, @PathVariable int floorId, @PathVariable int roomId) {
+    public ResponseEntity<Map<String, Double>> calculateRoomArea(@RequestBody Building building, @PathVariable int buildingId, @PathVariable int floorId, @PathVariable int roomId) {
         logger.info(">> calculateRoomArea: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
 
-        // Call transformer to get the area
-        String result = buildingTransformer.getAreaOfRoom(buildingId, floorId, roomId);
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
 
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + buildingId + " not found"));
 
-        logger.info("<< calculateRoomArea: {}", result);
+        // Szukamy piętra po ID
+        Floor foundFloor = foundBuilding.getFloors()
+                .stream()
+                .filter(f -> f.getId() == floorId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Floor with ID " + floorId + " not found"));
+
+        // Szukamy pomieszczenia po ID
+        Room foundRoom = foundFloor.getRooms()
+                .stream()
+                .filter(r -> r.getId() == roomId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Room with ID " + roomId + " not found"));
+
+        // Obliczamy powierzchnię pomieszczenia
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("area", (double) foundRoom.getArea());
+
+        logger.info("<< calculateRoomArea: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    // Cubature Endpoints
-    @PostMapping(value = "/{id}/cube", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateBuildingCube(@PathVariable int id) {
+    // Endpoint do obliczania kubatury budynku
+    @PostMapping(value = "/{id}/cube", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateBuildingCube(@RequestBody Building building, @PathVariable int id) {
         logger.info(">> calculateBuildingCube: ID = {}", id);
-        String result = buildingTransformer.getCubeOfBuilding(id);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateBuildingCube: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + id + " not found"));
+
+        // Obliczamy kubaturę budynku
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("cube", (double) foundBuilding.getBuildingCube());
+
+        logger.info("<< calculateBuildingCube: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{buildingId}/floor/{floorId}/cube", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateFloorCube(@PathVariable int buildingId, @PathVariable int floorId) {
+    // Endpoint do obliczania kubatury piętra
+    @PostMapping(value = "/{buildingId}/floor/{floorId}/cube", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateFloorCube(@RequestBody Building building, @PathVariable int buildingId, @PathVariable int floorId) {
         logger.info(">> calculateFloorCube: Building ID = {}, Floor ID = {}", buildingId, floorId);
-        String result = buildingTransformer.getCubeOfFloor(buildingId, floorId);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateFloorCube: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + buildingId + " not found"));
+
+        // Szukamy piętra po ID
+        Floor foundFloor = foundBuilding.getFloors()
+                .stream()
+                .filter(f -> f.getId() == floorId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Floor with ID " + floorId + " not found"));
+
+        // Obliczamy kubaturę piętra
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("cube", (double) foundFloor.getFloorCube());
+
+        logger.info("<< calculateFloorCube: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{buildingId}/floor/{floorId}/room/{roomId}/cube", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateRoomCube(@PathVariable int buildingId, @PathVariable int floorId, @PathVariable int roomId) {
+    // Endpoint do obliczania kubatury pomieszczenia
+    @PostMapping(value = "/{buildingId}/floor/{floorId}/room/{roomId}/cube", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateRoomCube(@RequestBody Building building, @PathVariable int buildingId, @PathVariable int floorId, @PathVariable int roomId) {
         logger.info(">> calculateRoomCube: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
-        String result = buildingTransformer.getCubeOfRoom(buildingId, floorId, roomId);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateRoomCube: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + buildingId + " not found"));
+
+        // Szukamy piętra po ID
+        Floor foundFloor = foundBuilding.getFloors()
+                .stream()
+                .filter(f -> f.getId() == floorId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Floor with ID " + floorId + " not found"));
+
+        // Szukamy pomieszczenia po ID
+        Room foundRoom = foundFloor.getRooms()
+                .stream()
+                .filter(r -> r.getId() == roomId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Room with ID " + roomId + " not found"));
+
+        // Obliczamy kubaturę pomieszczenia
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("cube", (double) foundRoom.getCube());
+
+        logger.info("<< calculateRoomCube: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    // Lighting Endpoints
-    @PostMapping(value = "/{id}/light", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateBuildingLight(@PathVariable int id) {
+    // Endpoint do obliczania ilości światła w budynku
+    @PostMapping(value = "/{id}/light", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateBuildingLight(@RequestBody Building building, @PathVariable int id) {
         logger.info(">> calculateBuildingLight: ID = {}", id);
-        String result = buildingTransformer.getLightOfBuilding(id);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateBuildingLight: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + id + " not found"));
+
+        // Obliczamy ilość światła w budynku
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("light", (double) foundBuilding.getAverageBuildingLight());
+
+        logger.info("<< calculateBuildingLight: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{buildingId}/floor/{floorId}/light", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateFloorLight(@PathVariable int buildingId, @PathVariable int floorId) {
+    // Endpoint do obliczania ilości światła w piętrze
+    @PostMapping(value = "/{buildingId}/floor/{floorId}/light", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateFloorLight(@RequestBody Building building, @PathVariable int buildingId, @PathVariable int floorId) {
         logger.info(">> calculateFloorLight: Building ID = {}, Floor ID = {}", buildingId, floorId);
-        String result = buildingTransformer.getLightOfFloor(buildingId, floorId);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateFloorLight: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + buildingId + " not found"));
+
+        // Szukamy piętra po ID
+        Floor foundFloor = foundBuilding.getFloors()
+                .stream()
+                .filter(f -> f.getId() == floorId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Floor with ID " + floorId + " not found"));
+
+        // Obliczamy ilość światła w piętrze
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("light", (double) foundFloor.getAverageFloorLight());
+
+        logger.info("<< calculateFloorLight: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{buildingId}/floor/{floorId}/room/{roomId}/light", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateRoomLight(@PathVariable int buildingId, @PathVariable int floorId, @PathVariable int roomId) {
+    // Endpoint do obliczania ilości światła w pomieszczeniu
+    @PostMapping(value = "/{buildingId}/floor/{floorId}/room/{roomId}/light", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateRoomLight(@RequestBody Building building, @PathVariable int buildingId, @PathVariable int floorId, @PathVariable int roomId) {
         logger.info(">> calculateRoomLight: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
-        String result = buildingTransformer.getLightOfRoom(buildingId, floorId, roomId);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateRoomLight: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + buildingId + " not found"));
+
+        // Szukamy piętra po ID
+        Floor foundFloor = foundBuilding.getFloors()
+                .stream()
+                .filter(f -> f.getId() == floorId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Floor with ID " + floorId + " not found"));
+
+        // Szukamy pomieszczenia po ID
+        Room foundRoom = foundFloor.getRooms()
+                .stream()
+                .filter(r -> r.getId() == roomId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Room with ID " + roomId + " not found"));
+
+        // Obliczamy ilość światła w pomieszczeniu
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("light", (double) foundRoom.getAverageRoomLight());
+
+        logger.info("<< calculateRoomLight: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    // Heating Endpoints
-    @PostMapping(value = "/{id}/heating", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateBuildingHeating(@PathVariable int id) {
+    // Endpoint do obliczania ilości ciepła w budynku
+    @PostMapping(value = "/{id}/heating", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateBuildingHeating(@RequestBody Building building, @PathVariable int id) {
         logger.info(">> calculateBuildingHeating: ID = {}", id);
-        String result = buildingTransformer.getHeatingOfBuilding(id);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateBuildingHeating: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + id + " not found"));
+
+        // Obliczamy ilość ciepła w budynku
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("heating", (double) foundBuilding.getAverageBuildingHeating());
+
+        logger.info("<< calculateBuildingHeating: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{buildingId}/floor/{floorId}/heating", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateFloorHeating(@PathVariable int buildingId, @PathVariable int floorId) {
+    // Endpoint do obliczania ilości ciepła w piętrze
+    @PostMapping(value = "/{buildingId}/floor/{floorId}/heating", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateFloorHeating(@RequestBody Building building, @PathVariable int buildingId, @PathVariable int floorId) {
         logger.info(">> calculateFloorHeating: Building ID = {}, Floor ID = {}", buildingId, floorId);
-        String result = buildingTransformer.getHeatingOfFloor(buildingId, floorId);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateFloorHeating: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + buildingId + " not found"));
+
+        // Szukamy piętra po ID
+        Floor foundFloor = foundBuilding.getFloors()
+                .stream()
+                .filter(f -> f.getId() == floorId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Floor with ID " + floorId + " not found"));
+
+        // Obliczamy ilość ciepła w piętrze
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("heating", (double) foundFloor.getAverageFloorHeating());
+
+        logger.info("<< calculateFloorHeating: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{buildingId}/floor/{floorId}/room/{roomId}/heating", produces = "application/json")
-    public ResponseEntity<Map<String, String>> calculateRoomHeating(@PathVariable int buildingId, @PathVariable int floorId, @PathVariable int roomId) {
+    // Endpoint do obliczania ilości ciepła w pomieszczeniu
+    @PostMapping(value = "/{buildingId}/floor/{floorId}/room/{roomId}/heating", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, Double>> calculateRoomHeating(@RequestBody Building building, @PathVariable int buildingId, @PathVariable int floorId, @PathVariable int roomId) {
         logger.info(">> calculateRoomHeating: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
-        String result = buildingTransformer.getHeatingOfRoom(buildingId, floorId, roomId);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("result", result);
-        logger.info("<< calculateRoomHeating: {}", result);
+
+        // Dodajemy budynek do listy w transformerze
+        buildingTransformer.addBuildingFromJson(building);
+
+        // Szukamy budynku po ID
+        Building foundBuilding = buildingTransformer.getAllBuildings()
+                .stream()
+                .filter(b -> b.getId() == buildingId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Building with ID " + buildingId + " not found"));
+
+        // Szukamy piętra po ID
+        Floor foundFloor = foundBuilding.getFloors()
+                .stream()
+                .filter(f -> f.getId() == floorId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Floor with ID " + floorId + " not found"));
+
+        // Szukamy pomieszczenia po ID
+        Room foundRoom = foundFloor.getRooms()
+                .stream()
+                .filter(r -> r.getId() == roomId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Room with ID " + roomId + " not found"));
+
+        // Obliczamy ilość ciepła w pomieszczeniu
+        Map<String, Double> responseBody = new HashMap<>();
+        responseBody.put("heating", (double) foundRoom.getAverageRoomHeating());
+
+        logger.info("<< calculateRoomHeating: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
