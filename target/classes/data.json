@@ -1,50 +1,122 @@
-{
+[
+  {
   "id": 1,
   "name": "Building A",
   "floors": [
-    {
+      {
       "id": 101,
       "name": "Ground Floor",
       "rooms": [
-        {
+          {
           "id": 1001,
           "name": "Conference Room",
           "area": 50.0,
           "cube": 150.0,
           "heating": 20.5,
           "light": 300.0
-        },
-        {
+          },
+          {
           "id": 1002,
           "name": "Reception",
           "area": 30.0,
           "cube": 90.0,
           "heating": 15.0,
           "light": 150.0
-        }
+          }
       ]
-    },
-    {
+      },
+      {
       "id": 102,
       "name": "First Floor",
       "rooms": [
-        {
+          {
           "id": 2001,
           "name": "Office 1",
           "area": 25.0,
           "cube": 75.0,
           "heating": 12.0,
           "light": 120.0
-        },
-        {
+          },
+          {
           "id": 2002,
           "name": "Office 2",
           "area": 30.0,
           "cube": 90.0,
           "heating": 15.5,
           "light": 150.0
+          }
+      ]
+      }
+  ]
+  },
+  {
+  "id": 2,
+  "name": "Building B",
+  "floors": [
+      {
+      "id": 201,
+      "name": "Ground Floor",
+      "rooms": [
+          {
+          "id": 3001,
+          "name": "Lobby",
+          "area": 40.0,
+          "cube": 120.0,
+          "heating": 18.0,
+          "light": 200.0
+          },
+          {
+          "id": 3002,
+          "name": "Cafeteria",
+          "area": 60.0,
+          "cube": 180.0,
+          "heating": 22.0,
+          "light": 400.0
+          }
+      ]
+      },
+      {
+      "id": 202,
+      "name": "First Floor",
+      "rooms": [
+          {
+          "id": 4001,
+          "name": "Meeting Room",
+          "area": 35.0,
+          "cube": 105.0,
+          "heating": 16.0,
+          "light": 250.0
+          },
+          {
+          "id": 4002,
+          "name": "Office 3",
+          "area": 28.0,
+          "cube": 84.0,
+          "heating": 14.0,
+          "light": 140.0
+          }
+      ]
+      }
+  ]
+  },
+  {
+  "id": 3,
+  "name": "Building C",
+  "floors": [
+    {
+      "id": 301,
+      "name": "Ground Floor",
+      "rooms": [
+        {
+          "id": 5001,
+          "name": "basement",
+          "area": 55.0,
+          "cube": 120.0,
+          "heating": 10.0,
+          "light": 220.0
         }
       ]
     }
   ]
-}
+  }
+]
