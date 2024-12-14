@@ -19,3 +19,10 @@
 * Michał Budzyński (Scrum Master)
 * Aleksandra Bamberska
 * Adam Biernacki
+
+## Zarządzanie rejestrem projektu
+Zarządzanie rejestrem projektu i rejestrem sprintu odbywa się na platformie Trello
+
+[Zobacz rejestr projektu](https://trello.com/b/aaN2qBro)
+
+
