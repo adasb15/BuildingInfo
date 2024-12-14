@@ -23,5 +23,6 @@
 ## Zarządzanie rejestrem projektu
 Zarządzanie rejestrem projektu i rejestrem sprintu odbywa się na platformie Trello
 
-[Zobacz rejestr projektu]((https://trello.com/invite/b/673cc4ec62501f5c033fbad3/ATTI652250c6d89e66111ef7c0b38a615924DD214805/building-info))
+[Zobacz rejestr projektu](https://trello.com/b/aaN2qBro)
+
 
