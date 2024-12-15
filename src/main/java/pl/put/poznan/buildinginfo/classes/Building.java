@@ -105,7 +105,7 @@ public class Building extends Location {
     public float getBuildingHeating() {
         float buildingHeating = 0;
         for (Floor floor : floors) {
-            buildingHeating += floor.getFloorLight(); // This may be a mistake (uses `getFloorLight` instead of `getFloorHeating`).
+            buildingHeating += floor.getFloorHeating();
         }
         return buildingHeating;
     }
