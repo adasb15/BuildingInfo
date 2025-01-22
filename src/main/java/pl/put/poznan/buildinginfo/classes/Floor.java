@@ -145,4 +145,21 @@ public class Floor extends Location {
         }
         return roomsAboveThreshold;
     }
+
+     /**
+     * Calculates the heating cost for the given number of days for the floor.
+     *
+     * @param numberOfDays the number of days to calculate heating cost for
+     * @param price the price per unit of heating power
+     * @return the total heating cost for the specified number of days
+     * @throws IllegalArgumentException if numberOfDays or price is negative
+     */
+
+    public float getHeatingCostFloor(float numberOfDays, float price){
+        if (numberOfDays < 0 || price < 0) {
+            throw new IllegalArgumentException("Number of days and price must be non-negative.");
+        }
+        float energyInKWh = (getFloorHeating() * 60 * 60 * 24 * numberOfDays) / 3600000;
+        return energyInKWh * price;
+    }
 }

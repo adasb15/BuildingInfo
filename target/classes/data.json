@@ -12,7 +12,7 @@
           "name": "Conference Room",
           "area": 50.0,
           "cube": 150.0,
-          "heating": 20.5,
+          "heating": 228.0,
           "light": 300.0
           },
           {
@@ -20,7 +20,7 @@
           "name": "Reception",
           "area": 30.0,
           "cube": 90.0,
-          "heating": 15.0,
+          "heating": 141.0,
           "light": 150.0
           }
       ]
@@ -34,7 +34,7 @@
           "name": "Office 1",
           "area": 25.0,
           "cube": 75.0,
-          "heating": 12.0,
+          "heating": 125.0,
           "light": 120.0
           },
           {
@@ -42,7 +42,7 @@
           "name": "Office 2",
           "area": 30.0,
           "cube": 90.0,
-          "heating": 15.5,
+          "heating": 138.0,
           "light": 150.0
           }
       ]
@@ -62,7 +62,7 @@
           "name": "Lobby",
           "area": 40.0,
           "cube": 120.0,
-          "heating": 18.0,
+          "heating": 192.0,
           "light": 200.0
           },
           {
@@ -70,7 +70,7 @@
           "name": "Cafeteria",
           "area": 60.0,
           "cube": 180.0,
-          "heating": 22.0,
+          "heating": 294.0,
           "light": 400.0
           }
       ]
@@ -84,7 +84,7 @@
           "name": "Meeting Room",
           "area": 35.0,
           "cube": 105.0,
-          "heating": 16.0,
+          "heating": 178.5,
           "light": 250.0
           },
           {
@@ -92,7 +92,7 @@
           "name": "Office 3",
           "area": 28.0,
           "cube": 84.0,
-          "heating": 14.0,
+          "heating": 127.68,
           "light": 140.0
           }
       ]
@@ -112,7 +112,7 @@
           "name": "basement",
           "area": 55.0,
           "cube": 120.0,
-          "heating": 10.0,
+          "heating": 330.0,
           "light": 220.0
         }
       ]
