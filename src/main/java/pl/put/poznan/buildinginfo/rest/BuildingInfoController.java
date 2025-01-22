@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.put.poznan.buildinginfo.classes.Building;
 import pl.put.poznan.buildinginfo.classes.Room;
 import pl.put.poznan.buildinginfo.logic.BuildingTransformer;
+import pl.put.poznan.buildinginfo.logic.FloorTransformer;
+import pl.put.poznan.buildinginfo.logic.MainTransformer;
+import pl.put.poznan.buildinginfo.logic.RoomTransformer;
 
 /**
  * The {@code BuildingInfoController} class is a REST controller responsible for handling HTTP requests
@@ -36,16 +39,28 @@ public class BuildingInfoController {
     /**
      * Transformer for managing and processing building data.
      */
+    private final MainTransformer mainTransformer;
     private final BuildingTransformer buildingTransformer;
+    private final FloorTransformer floorTransformer;
+    private final RoomTransformer roomTransformer;
 
     /**
-     * Constructs a {@code BuildingInfoController} with a provided {@link BuildingTransformer}.
+     * Constructs a {@code BuildingInfoController} with the provided transformers.
      *
-     * @param buildingTransformer the transformer for managing buildings
+     * @param mainTransformer    the transformer for managing overall building operations
+     * @param buildingTransformer the transformer for handling building-specific operations
+     * @param floorTransformer    the transformer for handling floor-specific operations
+     * @param roomTransformer     the transformer for handling room-specific operations
      */
-    public BuildingInfoController(BuildingTransformer buildingTransformer) {
+    public BuildingInfoController(MainTransformer mainTransformer, BuildingTransformer buildingTransformer, 
+            FloorTransformer floorTransformer, RoomTransformer roomTransformer) {
+        this.mainTransformer = mainTransformer;
         this.buildingTransformer = buildingTransformer;
+        this.floorTransformer = floorTransformer;
+        this.roomTransformer = roomTransformer;
     }
+
+    
 
     /**
      * Calculates the total area of a building by its ID.
@@ -59,7 +74,7 @@ public class BuildingInfoController {
         logger.info(">> calculateBuildingArea: ID = {}", id);
 
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
 
         String result = buildingTransformer.getAreaOfBuilding(id);
@@ -84,10 +99,10 @@ public class BuildingInfoController {
         logger.info(">> calculateFloorArea: Building ID = {}, Floor ID = {}", buildingId, floorId);
 
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
 
-        String result = buildingTransformer.getAreaOfFloor(buildingId, floorId);
+        String result = floorTransformer.getAreaOfFloor(buildingId, floorId);
 
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("result", result);
@@ -110,10 +125,10 @@ public class BuildingInfoController {
         logger.info(">> calculateRoomArea: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
 
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
 
-        String result = buildingTransformer.getAreaOfRoom(buildingId, floorId, roomId);
+        String result = roomTransformer.getAreaOfRoom(buildingId, floorId, roomId);
 
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("result", result);
@@ -134,7 +149,7 @@ public class BuildingInfoController {
         logger.info(">> calculateBuildingCube: ID = {}", id);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
 
         String result = buildingTransformer.getCubeOfBuilding(id);
@@ -159,10 +174,10 @@ public class BuildingInfoController {
         logger.info(">> calculateFloorCube: Building ID = {}, Floor ID = {}", buildingId, floorId);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
 
-        String result = buildingTransformer.getCubeOfFloor(buildingId, floorId);
+        String result = floorTransformer.getCubeOfFloor(buildingId, floorId);
         
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("result", result);
@@ -185,10 +200,10 @@ public class BuildingInfoController {
         logger.info(">> calculateRoomCube: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
 
-        String result = buildingTransformer.getCubeOfRoom(buildingId, floorId, roomId);
+        String result = roomTransformer.getCubeOfRoom(buildingId, floorId, roomId);
         
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("result", result);
@@ -209,7 +224,7 @@ public class BuildingInfoController {
         logger.info(">> calculateBuildingLight: ID = {}", id);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
         
         String result = buildingTransformer.getLightOfBuilding(id);
@@ -234,10 +249,10 @@ public class BuildingInfoController {
         logger.info(">> calculateFloorLight: Building ID = {}, Floor ID = {}", buildingId, floorId);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
         
-        String result = buildingTransformer.getLightOfFloor(buildingId, floorId);
+        String result = floorTransformer.getLightOfFloor(buildingId, floorId);
         
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("result", result);
@@ -260,10 +275,10 @@ public class BuildingInfoController {
         logger.info(">> calculateRoomLight: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
         
-        String result = buildingTransformer.getLightOfRoom(buildingId, floorId, roomId);
+        String result = roomTransformer.getLightOfRoom(buildingId, floorId, roomId);
         
         Map<String, String> responseBody = new HashMap<>();
         
@@ -284,7 +299,7 @@ public class BuildingInfoController {
         logger.info(">> calculateBuildingHeating: ID = {}", id);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
         
         String result = buildingTransformer.getHeatingOfBuilding(id);
@@ -309,10 +324,10 @@ public class BuildingInfoController {
         logger.info(">> calculateFloorHeating: Building ID = {}, Floor ID = {}", buildingId, floorId);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
         
-        String result = buildingTransformer.getHeatingOfFloor(buildingId, floorId);
+        String result = floorTransformer.getHeatingOfFloor(buildingId, floorId);
         
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("result", result);
@@ -335,10 +350,10 @@ public class BuildingInfoController {
         logger.info(">> calculateRoomHeating: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
         
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
         
-        String result = buildingTransformer.getHeatingOfRoom(buildingId, floorId, roomId);
+        String result = roomTransformer.getHeatingOfRoom(buildingId, floorId, roomId);
         
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("result", result);
@@ -361,11 +376,11 @@ public class BuildingInfoController {
         logger.info(">> calculateRoomsAboveThreshold: ID = {}, threshold = {}", id, threshold);
 
         for (Building building : buildings) {
-            buildingTransformer.addBuildingFromJson(building);
+            mainTransformer.addBuildingFromJson(building);
         }
 
         // Szukamy budynku po ID
-        List<Room> foundRooms = buildingTransformer.getAllBuildings()
+        List<Room> foundRooms = mainTransformer.getAllBuildings()
                 .stream()
                 .filter(b -> b.getId() == id)
                 .findFirst()
@@ -381,6 +396,91 @@ public class BuildingInfoController {
         logger.info("<< calculateRoomsAboveThreshold: {}", responseBody.toString());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
+
+    /**
+     * Calculates the total heating cost of a building by its ID.
+     *
+     * @param buildings the list of buildings received in the request body
+     * @param id the ID of the building
+     * @param price price of the 1KWh 
+     * @param numberOfDays number of days for which we want to calculate the cost
+     * @return a response entity containing the calculated cost of heating energy or an error message
+     */
+    @PostMapping(value = "/{id}/heating_cost/{price}/{numberOfDays}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, String>> calculateHeatingCostBuilding(@RequestBody List<Building> buildings, @PathVariable int id, 
+                                                                            @PathVariable float price, @PathVariable int numberOfDays) {
+        logger.info(">> calculateHeatingCostBuilding: ID = {}", id);
+
+        for (Building building : buildings) {
+            mainTransformer.addBuildingFromJson(building);
+        }
+
+        String result = buildingTransformer.getHeatingCostOfBuilding(id, numberOfDays, price);
+
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("result", result);
+
+        logger.info("<< calculateBuildingHeatingCost: {}", result);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+    }
+
+    /**
+     * Calculates the area of a floor within a building.
+     *
+     * @param buildings the list of buildings received in the request body
+     * @param buildingId the ID of the building
+     * @param floorId the ID of the floor
+     * @param price price of the 1KWh 
+     * @param numberOfDays number of days for which we want to calculate the cost
+     * @return a response entity containing the calculated floor area or an error message
+     */
+    @PostMapping(value = "/{buildingId}/floor/{floorId}/heating_cost/{price}/{numberOfDays}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, String>> calculateFloorArea(@RequestBody List<Building> buildings, @PathVariable int buildingId, 
+                                                                  @PathVariable int floorId, @PathVariable float price, @PathVariable int numberOfDays) {
+        logger.info(">> calculateFloorHeatingCost: Building ID = {}, Floor ID = {}", buildingId, floorId);
+
+        for (Building building : buildings) {
+            mainTransformer.addBuildingFromJson(building);
+        }
+
+        String result = floorTransformer.getHeatingCostOfFloor(buildingId, floorId, numberOfDays, price);
+
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("result", result);
+
+        logger.info("<< calculateFloorHeatingCost: {}", result);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+    }
+
+     /**
+     * Calculates the area of a room within a floor and building.
+     *
+     * @param buildings the list of buildings received in the request body
+     * @param buildingId the ID of the building
+     * @param floorId the ID of the floor
+     * @param roomId the ID of the room
+     * @param price price of the 1KWh 
+     * @param numberOfDays number of days for which we want to calculate the cost
+     * @return a response entity containing the calculated room area or an error message
+     */
+    @PostMapping(value = "/{buildingId}/floor/{floorId}/room/{roomId}/heating_cost/{price}/{numberOfDays}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Map<String, String>> calculateRoomHeatingCost(@RequestBody List<Building> buildings, @PathVariable int buildingId, @PathVariable int floorId, 
+                                                                        @PathVariable int roomId, @PathVariable float price, @PathVariable int numberOfDays) {
+        logger.info(">> calculateRoomHeatingCost: Building ID = {}, Floor ID = {}, Room ID = {}", buildingId, floorId, roomId);
+
+        for (Building building : buildings) {
+            mainTransformer.addBuildingFromJson(building);
+        }
+
+        String result = roomTransformer.getHeatingCostOfRoom(buildingId, floorId, roomId, numberOfDays, price);
+
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("result", result);
+
+        logger.info("<< calculateRoomHeatingCost: {}", result);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+    }
+
 
     /**
      * Handles invalid input data exceptions.
